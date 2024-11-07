@@ -9,9 +9,10 @@ end sim_reg_32x32;
 architecture sim of sim_reg_32x32 is
   component reg_32x32 is
     port (
-      A : in  std_logic;
-      B : in  std_logic;
-      Y : out std_logic
+      clk, hab_w : in  std_logic;
+      dir_w, dir_r1, dir_r2 : in  std_logic_vector(4 downto 0);
+      dat_w : in std_logic_vector(3 downto 0);
+      dat_r1, dat_r2 : out std_logic_vector(3 downto 0)
     );
   end component; -- reg_32x32
   signal entradas : std_logic_vector (1 downto 0);

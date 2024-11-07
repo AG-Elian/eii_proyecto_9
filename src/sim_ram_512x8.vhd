@@ -9,16 +9,24 @@ end sim_ram_512x8;
 architecture sim of sim_ram_512x8 is
   component ram_512x8 is
     port (
-      A : in  std_logic;
-      B : in  std_logic;
-      Y : out std_logic
+      clk_w : in  std_logic;
+      dir_w : in  std_logic_vector(8 downto 0);
+      hab_w : in std_logic;
+      dat_w : in std_logic(7 downto 0);
+      clk_r : in std_logic;
+      dir_r : in std_logic_vector(8 downto 0);
+      hab_r : in std_logic;
+      dat_r : out std_logic_vector(7 downto 0)
     );
   end component; -- ram_512x8
-  signal entradas : std_logic_vector (1 downto 0);
-  signal salida : std_logic;
+  signal dir_r, dir_w : std_logic_vector(8 downto 0);
+  signal dat_w : std_logic_vector(7 downto 0); 
+  signal dat_r : std_logic_vector(7 downto 0);
+  signal hab_r, hab_w, clk_r, clk_w : std_logic;
 begin
   -- Dispositivo bajo prueba
-  dut : ram_512x8 port map (A=>entradas(1),B=>entradas(0),Y=>salida);
+  dut : ram_512x8 port map (clk_w=>clk_w,clk_r=>clk_r,dat_r=>dat_r,
+                      dat_w=>dat_w, hab_r=>hab_r,hab_w=>hab_w,dir_r=>dir_r,dir_w=>_dir_w);
 
   excitaciones: process
   begin
