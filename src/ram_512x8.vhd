@@ -7,7 +7,7 @@ entity ram_512x8 is
     clk_w : in  std_logic;
     dir_w : in  std_logic_vector(8 downto 0);
     hab_w : in std_logic;
-    dat_w : in std_logic(7 downto 0);
+    dat_w : in std_logic_vector(7 downto 0);
     clk_r : in std_logic;
     dir_r : in std_logic_vector(8 downto 0);
     hab_r : in std_logic;
@@ -16,8 +16,8 @@ entity ram_512x8 is
 end ram_512x8;
 
 architecture behavioral of ram_512x8 is
-  type mem_t is array(0 to 511) of std_logic_vector(3 downto 0);
-  signal mem : mem_t:=(3=> x"A", others=>x"0");
+  type mem_t is array(0 to 511) of std_logic_vector(7 downto 0);
+  signal mem : mem_t:=(6=>x"A", others=>x"0");
 begin
   read_port : process (clk_r)
   begin
@@ -30,7 +30,7 @@ begin
 
   write_port : process(clk_w)
   begin
-    if rising_edge() then
+    if rising_edge(clk_w) then
       if hab_w = '1' then
         mem(to_integer(unsigned(dir_w)))<=dat_w;
         end if;

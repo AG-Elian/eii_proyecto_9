@@ -22,7 +22,7 @@ begin
   puerto_lectura : process (clk_r)
   begin
     if rising_edge(clk_r) then
-      if hab_r = '1'; then
+      if hab_r = '1' then
         dat_r <= mem(to_integer(unsigned(dat_r)));
         end if;
       end if;
@@ -32,7 +32,7 @@ begin
   begin
     if rising_edge(clk_w) then
       dir := to_integer(unsigned(dir_w));
-      for k in 0to 3 loop
+      for k in 0 to 3 loop
         pos := k*8;
         if hab_w(k)='1' then
           mem(dir)(pos + 7 down to pos)<=dat_w(pos+7 downto pos);
