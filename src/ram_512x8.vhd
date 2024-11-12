@@ -16,7 +16,7 @@ entity ram_512x8 is
 end ram_512x8;
 
 architecture behavioral of ram_512x8 is
-  type mem_t is array(0 to 31) of std_logic_vector(3 downto 0);
+  type mem_t is array(0 to 511) of std_logic_vector(3 downto 0);
   signal mem : mem_t:=(3=> x"A", others=>x"0");
 begin
   read_port : process (clk_r)

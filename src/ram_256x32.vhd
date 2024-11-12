@@ -16,7 +16,7 @@ entity ram_256x32 is
 end ram_256x32;
 
 architecture arch of ram_256x32 is
-  type mem_t is array (0 to 127) of std_logic_vector(31 to 0);
+  type mem_t is array (0 to 255) of std_logic_vector(31 to 0);
   signal mem : mem_t;
 begin
   puerto_lectura : process (clk_r)
