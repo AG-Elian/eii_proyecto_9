@@ -17,7 +17,7 @@ end ram_512x8;
 
 architecture behavioral of ram_512x8 is
   type mem_t is array(0 to 511) of std_logic_vector(7 downto 0);
-  signal mem : mem_t:=(6=>x"A", others=>x"0");
+  signal mem : mem_t:=(6=>x"AA", others=>x"00");
 begin
   read_port : process (clk_r)
   begin
