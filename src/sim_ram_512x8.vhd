@@ -23,10 +23,10 @@ architecture sim of sim_ram_512x8 is
   signal dir : std_logic_vector(8 downto 0);
   signal dat_w : std_logic_vector(7 downto 0); 
   signal dat_r : std_logic_vector(7 downto 0);
-  signal hab_r, hab_w, clk: std_logic;
+  signal hab_w, clk: std_logic;
 begin
   -- Dispositivo bajo prueba
-  dut : ram_512x8 port map (clk_w=>clk,clk_r=>clk,dat_r=>dat_r,dat_w=>dat_w, hab_r=>hab_r,hab_w=>hab_w,dir_r=>dir,dir_w=>dir);
+  dut : ram_512x8 port map (clk_w=>clk,clk_r=>clk,dat_r=>dat_r,dat_w=>dat_w, hab_r=>'1',hab_w=>hab_w,dir_r=>dir,dir_w=>dir);
 
   reloj: process
     begin
@@ -50,7 +50,7 @@ begin
       dat_w <= (others=>'0');
       hab_w <= '1';
       sig_ciclo;
-      dat_w <= aleatorio.genera_vector(9);
+      dat_w <= aleatorio.genera_vector(8);
       hab_w <= aleatorio.genera_bit;
       sig_ciclo;
       hab_w <= '0';
