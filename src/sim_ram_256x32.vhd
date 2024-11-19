@@ -26,15 +26,36 @@ architecture sim of sim_ram_256x32 is
   signal hab_r, hab_w, clk: std_logic;
 begin
   -- Dispositivo bajo prueba
-  dut : ram_256x32 port map (A=>entradas(1),B=>entradas(0),Y=>salida);
+  dut : ram_256x32 port map (clk_w=>clk,clk_r=>clk,dat_w=>dat_w,hab_r=>'1',hab_w=>hab_w,dat_r=>dat_r,dir_r=dir,dir_w=>dir);
+  
+  reloj: process --Definicion del proceso de reloj(clk)
+    begin
+      clk<='0';
+      wait for 1 ns;
+      clk<='1';
+      wait for 1 ns;
+      end process;
 
   excitaciones: process
+  variable aleatorio : aleatorio_t;
+    procedure sig_ciclo is
+      begin
+        wait until rising_edge(clk);
+        wait for 0.5 ns;
+        end procedure;
   begin
-    for i in 0 to (2**entradas'length)-1 loop
-      entradas <= std_logic_vector(to_unsigned(i,entradas'length));
-      wait for 1 ns;
-    end loop;
-    wait for 1 ns; -- Espera extra antes de salir
-    finish;
+    for k in 0 to 10 loop
+      dir <= aleatorio.genera_vector(8);
+      dat_w <= (others=>'0');
+      hab_w <= '1';
+      sig_ciclo;
+      dat_w <= aleatorio.genera_vector(32);
+      hab_w <= aleatorio.genera_bit;
+      sig_ciclo;
+      hab_w <= '0';
+      sig_ciclo;
+      end loop;
+      sig_ciclo;
+      finish;
   end process; -- excitaciones
 end sim;

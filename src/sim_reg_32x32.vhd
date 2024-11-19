@@ -16,11 +16,13 @@ architecture sim of sim_reg_32x32 is
       dat_r1, dat_r2 : out std_logic_vector(3 downto 0)
     );
   end component; -- reg_32x32
-  signal entradas : std_logic_vector (1 downto 0);
-  signal salida : std_logic;
+  signal dir : std_logic_vector(8 downto 0);
+  signal dat_w : std_logic_vector(7 downto 0); 
+  signal dat_r : std_logic_vector(7 downto 0);
+  signal hab_w, clk: std_logic;
 begin
   -- Dispositivo bajo prueba
-  dut : reg_32x32 port map (A=>entradas(1),B=>entradas(0),Y=>salida);
+  dut : reg_32x32 port map ();
 
   excitaciones: process
   begin
